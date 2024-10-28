@@ -22,12 +22,12 @@ def create_app() -> Flask:
     def receive_webhooks(target: str) -> tuple[str, int]:  # noqa: ARG001
         # TODO: Verify webhook from Benchling and dispatch the work
         # For security, don't do anything else without first verifying the webhook
-        # app_def_id = app_definition_id()
-        # verify(app_def_id, request.data.decode("utf-8"), request.headers)
+        app_def_id = app_definition_id()
+        verify(app_def_id, request.data.decode("utf-8"), request.headers)
 
         logger.debug("Received webhook message: %s", request.json)
         # Dispatch work and ACK webhook as quickly as possible
-        # _enqueue_work()
+        _enqueue_work()
         # ACK webhook by returning 2xx status code so Benchling knows the app received the signal
         return "OK", 200
 
